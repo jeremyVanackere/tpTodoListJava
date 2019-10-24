@@ -21,7 +21,12 @@ public class btnAjouterListener implements Action {
     public void actionPerformed(ActionEvent e) {
         String nom = fenetre.getTxtNomAjouter().getText();
         String description = fenetre.getTxtDescriptionAjouter().getText();
-        this.fenetre.getToDoList().ajouterTache(new Tache(new TacheBO(nom, description, ""+ Etat.EN_COUR)));
+        if(fenetre.getBtnAjouter().getText().equals("ajouter")) {
+            this.fenetre.getToDoList().ajouterTache(new Tache(new TacheBO(nom, description, "" + Etat.EN_COUR)));
+        } else if(fenetre.getBtnAjouter().getText().equals("modifier")) {
+            this.fenetre.getToDoList().modifierTacheParIndex(fenetre.getIndexModifiere(),new TacheBO(nom, description, "" + Etat.EN_COUR));
+            this.fenetre.getBtnAjouter().setText("ajouter");
+        }
         this.fenetre.afficherToDoList();
     }
     @Override

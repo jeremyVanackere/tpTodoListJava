@@ -1,6 +1,7 @@
 package graphique;
 
 import graphique.listener.btnAjouterListener;
+import graphique.listener.btnModifierListner;
 import todolist.*;
 
 import javax.swing.*;
@@ -16,6 +17,7 @@ public class Fenetre  extends JFrame {
     private JButton btnAjouter;
     private TextField txtNomAjouter;
     private  TextField txtDescriptionAjouter;
+    private int indexModifiere = 0;
     
 
     public Fenetre() {
@@ -34,13 +36,13 @@ public class Fenetre  extends JFrame {
         this.content = new JPanel(new GridLayout(2, 1));
         this.contentAjouter = new JPanel(new GridLayout(1,3));
 
-        this.btnAjouter = new JButton("ajouter");
-        this.btnAjouter.addActionListener(new btnAjouterListener(Fenetre.this));
+        this.setBtnAjouter(new JButton("ajouter"));
+        this.getBtnAjouter().addActionListener(new btnAjouterListener(Fenetre.this));
         this.setTxtNomAjouter(new TextField("nom"));
         this.setTxtDescriptionAjouter(new TextField("description"));
         this.contentAjouter.add(this.getTxtNomAjouter());
         this.contentAjouter.add(this.getTxtDescriptionAjouter());
-        this.contentAjouter.add(this.btnAjouter);
+        this.contentAjouter.add(this.getBtnAjouter());
         this.content.add(this.contentAjouter);
         return this.content;
     }
@@ -57,6 +59,8 @@ public class Fenetre  extends JFrame {
             this.contentToDoList.add(new JLabel(tache.getNom()));
             this.contentToDoList.add(new JLabel(tache.getDescription()));
             this.contentToDoList.add(new JLabel(tache.getEtat()));
+            JButton btnModifier = new JButton("modifier");
+            btnModifier.addActionListener(new btnModifierListner(Fenetre.this, i));
             this.contentToDoList.add(new JButton("modifier"));
             this.contentToDoList.add(new JButton("supprimer"));
         }
@@ -90,5 +94,21 @@ public class Fenetre  extends JFrame {
 
     public void setToDoList(ToDoList toDoList) {
         this.toDoList = toDoList;
+    }
+
+    public JButton getBtnAjouter() {
+        return btnAjouter;
+    }
+
+    public void setBtnAjouter(JButton btnAjouter) {
+        this.btnAjouter = btnAjouter;
+    }
+
+    public int getIndexModifiere() {
+        return indexModifiere;
+    }
+
+    public void setIndexModifiere(int indexModifiere) {
+        this.indexModifiere = indexModifiere;
     }
 }
